@@ -37,7 +37,7 @@ node_modules
 #SERVERLESS
 admin.env
 .env
-
+config.json
 /.remote-sync.json
 /.eslintrc.json
 /.eslintrc
