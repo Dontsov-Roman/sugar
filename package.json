@@ -1,0 +1,26 @@
+{
+  "name": "sugar",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dontsov-Roman/sugar.git"
+  },
+  "author": "Dontsov Roman",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Dontsov-Roman/sugar/issues"
+  },
+  "homepage": "https://github.com/Dontsov-Roman/sugar#readme",
+  "dependencies": {
+    "babel": "^6.23.0",
+    "babel-cli": "^6.26.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-react": "^6.24.1",
+    "eslint": "^4.11.0"
+  }
+}
