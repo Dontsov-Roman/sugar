@@ -41,7 +41,8 @@ CREATE TABLE orders (
     id integer NOT NULL,
     user_id integer,
     created_at timestamp without time zone DEFAULT now() NOT NULL,
-    date timestamp without time zone DEFAULT now() NOT NULL
+    date timestamp without time zone DEFAULT now() NOT NULL,
+    is_read boolean DEFAULT false
 );
 
 
@@ -123,7 +124,7 @@ ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regcl
 -- Data for Name: orders; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY orders (id, user_id, created_at, date) FROM stdin;
+COPY orders (id, user_id, created_at, date, is_read) FROM stdin;
 \.
 
 

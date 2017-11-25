@@ -18,5 +18,6 @@ const errorById = id => ({
 
 module.exports = {
     all: () => db.query('SELECT * FROM users').then(handler).catch(error),
+    allClients: () => db.query('SELECT * FROM users where type=2').then(handler).catch(error),
     byId: id => db.query('SELECT * FROM users where id=$1',[id]).then(handler).catch(errorById(id))
 };
