@@ -1,7 +1,7 @@
 require('babel-polyfill');
 const config = require('./config.json');
 const express = require('express');
-const clients = require('../DB/clients')
+const users = require('../DB/users')
 const app = express();
 
 const dbError = () => ({
@@ -12,23 +12,16 @@ app.get('/', (req, res) => {
     res.send('Hello world!')
 });
 
-app.get('/clients',(req,res) => {
-    clients
+app.get('/users',(req,res) => {
+    users
     .all()
     .then(result => res.send(result))
     .catch(err => res.send(err))
 });
 
-app.get('/clients/new',(req,res) => {
-    clients
-    .new()
-    .then(result => res.send(result))
-    .catch(err => res.send(err))
-});
-
-app.get('/clients/:id', (req,res) => {
+app.get('/users/:id', (req,res) => {
     const id = req.params.id;
-    clients
+    users
         .byId(id)
         .then(result => res.send(result))
         .catch(err => res.send(err))
