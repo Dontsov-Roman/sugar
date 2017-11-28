@@ -4,7 +4,7 @@ const WebpackDevServer = require('webpack-dev-server');
 const webpack = require('webpack');
 const webpackConfig = require('./common.config.js');
 
-const babelrc = fs.readFileSync('../.babelrc');
+const babelrc = fs.readFileSync('.babelrc');
 let config;
 
 try {

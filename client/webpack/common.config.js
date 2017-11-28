@@ -19,9 +19,6 @@ const common = {
       'react',
       'prop-types'
     ],
-    // grey: [PATHS.app+'/containers/Grey'],
-    // app: [PATHS.app+'/containers/App'],
-    // Authorization: [PATHS.app+'/components/Authorization']
   },
 
   output: {
@@ -58,8 +55,14 @@ const common = {
         loader: 'url-loader?limit=10000&mimetype=image/svg+xml',
       },
       {
+          enforce:"pre",
+          test:/\.jsx{0,1}$/,
+          exclude: /node_modules/,
+          loader:"eslint-loader"
+      },
+      {
         test: /\.jsx{0,1}$/,
-        loaders: ['babel-loader','eslint-loader'],
+        loaders: ['babel-loader'],
         // include: [
         //   path.resolve(__dirname, '../src')
         // ]

@@ -2,16 +2,16 @@ import 'babel-polyfill'
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import { Router } from 'react-router';
+import { BrowserRouter as Router } from 'react-router-dom';
 
-import { routes } from './routes';
-// import configureStore from './store/configureStore';
-
-const store = configureStore();
+import routes from './routes';
+import store from './store';
 
 render(
     <Provider store={store}>
-        <Router routes={routes} />
+        <Router>
+            {routes}
+        </Router>
     </Provider>
     , document.getElementById('root')
 );
