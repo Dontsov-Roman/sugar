@@ -4,17 +4,22 @@ export class Request{
     _host;
     _port;
     _fetch;
-
-    constructor(props = {host:'localhost', port:'3000'}){
+    _props;
+    constructor(props = {host:'http://localhost', port:'3000', props:{mode:'cors'}}){
         this._host = props.host;
         this._port = props.port;
         this._fetch = fetch;
+        this._props = props.props;
     }
 
     fetch(url, props){
-        url = this._host?this._host+url:url;
-        url = this._port?url+':'+this._port:url;
-        return fetch(url,props);
+        url = this._host?
+            this._port?this._host+':'+this._port+url
+                :this._host+url
+                    :this._port?
+                        ":"+this._port+url
+                        :url;
+        return fetch(url,{...this._props, ...props});
     }
 }
 

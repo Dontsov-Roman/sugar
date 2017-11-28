@@ -6,11 +6,11 @@ export const actions = request => {
         getAll: () => dispatch => {
             dispatch({type:constants.getRequest});
             request.fetch('/prices')
-            .then(res=>res.json())
-            .then(data=>console.warn(data))
-            .catch(error=>{
-                dispatch({type:constants.getFail});
+            .then(res => res.json())
+            .then( payload => dispatch({ type:constants.getSuccess, payload }) )
+            .catch(error => {
                 console.error(error);
+                dispatch({type:constants.getFail});
             });
         }
     }
