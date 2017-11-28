@@ -3,12 +3,10 @@ import 'whatwg-fetch';
 export class Request{
     _host;
     _port;
-    _fetch;
     _props;
     constructor(props = {host:'http://localhost', port:'3000', props:{mode:'cors'}}){
         this._host = props.host;
         this._port = props.port;
-        this._fetch = fetch;
         this._props = props.props;
     }
 

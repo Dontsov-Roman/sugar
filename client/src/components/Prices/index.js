@@ -1,6 +1,7 @@
 import React,{Component} from 'react';
 import PropTypes from 'prop-types';
-import Loader from 'material-ui/CircularProgress';
+import Container from 'material-ui/Paper';
+import Loader from '../Loader';
 import List from '../List';
 
 export default class Prices extends Component{
@@ -11,7 +12,9 @@ export default class Prices extends Component{
     static defaultProps = {
         List,
         Loader,
-        fetching:false
+        Container,
+        fetching:false,
+        style:{padding:'12px'}
     };
 
     componentWillMount(){
@@ -20,13 +23,13 @@ export default class Prices extends Component{
     }
 
     render(){
-        const {items, List, fetching, Loader, style} = this.props;
+        const {items, List, fetching, Loader, Container, style} = this.props;
         return(
-            <div style={style}>
+            <Container style={style}>
                 {fetching?<Loader /> :
                     <List items={items}/>
                 }
-            </div>
+            </Container>
         )
     }
 }

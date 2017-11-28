@@ -1,17 +1,20 @@
 import React,{Component} from 'react';
+import {List as Container} from 'material-ui/List';
 import Item from './Item';
 
 export default class List extends Component{
+    
     static defaultProps = {
-        Item
+        Item,
+        Container
     };
 
     render(){
-        const {items, Item, style, itemStyle} = this.props;
+        const {items, Item, Container, style, itemStyle} = this.props;
         return(
-            <div style={style}>
+            <Container style={style}>
                 {items.map(item => <Item key={item.id} style={itemStyle} item={item} />)}
-            </div>
+            </Container>
         )
     }
 }
