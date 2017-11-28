@@ -1,4 +1,4 @@
-﻿--
+--
 -- PostgreSQL database dump
 --
 
@@ -70,6 +70,42 @@ ALTER SEQUENCE orders_id_seq OWNED BY orders.id;
 
 
 --
+-- Name: prices; Type: TABLE; Schema: public; Owner: sugar
+--
+
+CREATE TABLE prices (
+    id integer NOT NULL,
+    name character varying(256),
+    description text,
+    price_uah numeric(6,2),
+    time_hours numeric(6,2)
+);
+
+
+ALTER TABLE prices OWNER TO sugar;
+
+--
+-- Name: prices_id_seq; Type: SEQUENCE; Schema: public; Owner: sugar
+--
+
+CREATE SEQUENCE prices_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE prices_id_seq OWNER TO sugar;
+
+--
+-- Name: prices_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: sugar
+--
+
+ALTER SEQUENCE prices_id_seq OWNED BY prices.id;
+
+
+--
 -- Name: users; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -114,6 +150,13 @@ ALTER TABLE ONLY orders ALTER COLUMN id SET DEFAULT nextval('orders_id_seq'::reg
 
 
 --
+-- Name: id; Type: DEFAULT; Schema: public; Owner: sugar
+--
+
+ALTER TABLE ONLY prices ALTER COLUMN id SET DEFAULT nextval('prices_id_seq'::regclass);
+
+
+--
 -- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -125,6 +168,7 @@ ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regcl
 --
 
 COPY orders (id, user_id, created_at, date, is_read) FROM stdin;
+\.
 
 
 --
@@ -135,11 +179,25 @@ SELECT pg_catalog.setval('orders_id_seq', 1, false);
 
 
 --
+-- Data for Name: prices; Type: TABLE DATA; Schema: public; Owner: sugar
+--
+
+COPY prices (id, name, description, price_uah, time_hours) FROM stdin;
+\.
+
+
+--
+-- Name: prices_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sugar
+--
+
+SELECT pg_catalog.setval('prices_id_seq', 1, false);
+
+
+--
 -- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY users (id, type, email, phone, name, created_at) FROM stdin;
-1	1	bromaretskaya@gmail.com	380977099433	Alexandra Bromaretskaya	2017-11-25 21:13:18.939632
 \.
 
 
@@ -156,6 +214,14 @@ SELECT pg_catalog.setval('users_id_seq', 1, false);
 
 ALTER TABLE ONLY orders
     ADD CONSTRAINT orders_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: prices_pkey; Type: CONSTRAINT; Schema: public; Owner: sugar
+--
+
+ALTER TABLE ONLY prices
+    ADD CONSTRAINT prices_pkey PRIMARY KEY (id);
 
 
 --

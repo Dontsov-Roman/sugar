@@ -1,7 +1,8 @@
 require('babel-polyfill');
-const config = require('./config.json');
 const express = require('express');
-const users = require('../DB/users')
+const config = require('./config.json');
+const users = require('../DB/users');
+const prices = require('../DB/prices');
 const app = express();
 
 const dbError = () => ({
@@ -10,6 +11,13 @@ const dbError = () => ({
 
 app.get('/', (req, res) => {
     res.send('Hello world!')
+});
+
+app.get('/prices',(req,res) => {
+    prices
+    .all()
+    .then(result => res.send(result))
+    .catch(err => res.send(err))
 });
 
 app.get('/users',(req,res) => {

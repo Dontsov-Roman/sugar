@@ -4,13 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start":"node index.js",
-    "test":"node DB/getAllClients.js"
+    "start": "node index.js",
+    "test": "node DB/getAllClients.js"
   },
   "author": "Dontsov Roman",
   "license": "ISC",
   "dependencies": {
     "express": "^4.16.2",
     "pg": "^7.4.0"
+  },
+  "devDependencies": {
+    "babel-polyfill": "^6.26.0"
   }
 }
