@@ -9,6 +9,12 @@ const dbError = () => ({
     errorMessage:'something went wrong'
 })
 
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 app.get('/', (req, res) => {
     res.send('Hello world!')
 });
@@ -16,7 +22,10 @@ app.get('/', (req, res) => {
 app.get('/prices',(req,res) => {
     prices
     .all()
-    .then(result => res.send(result))
+    .then(result => {
+        res.setHeader('Content-Type', 'application/json');
+        res.send(JSON.stringify(result));
+    })
     .catch(err => res.send(err))
 });
 
