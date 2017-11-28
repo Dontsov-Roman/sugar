@@ -1,14 +1,14 @@
 import React,{Component} from 'react';
 import appDecorator from '../../decorators/App';
 
-@appDecorator
-export default class About extends Component{
+export class Home extends Component{
     render(){
-        const {app} = this.props;
         return (
             <div>
-                title:{app.title}
+                Hello World from home
             </div>
         )
     }
 }
+
+export default appDecorator(Home);
