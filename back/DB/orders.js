@@ -18,13 +18,11 @@ const sqlWithUser = `SELECT
         SELECT ROW_TO_JSON(
              (
                  SELECT x FROM (
-                     SELECT (
-                         SELECT json_agg(
+                         SELECT JSON_AGG(
                              (SELECT x FROM (
                                  SELECT p.id AS id, p.name AS name, p.price_uah AS price) x
                              )
-                         ) FROM prices p WHERE p.id=ANY(o.prices_ids)
-                     ) AS k3
+                         ) as pr FROM prices p WHERE p.id=ANY(o.prices_ids)
                  ) x
              ), true
          )
