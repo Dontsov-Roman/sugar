@@ -2,5 +2,6 @@
     "index":"/",
     "home":"/",
     "about":"/about",
-    "prices":"/prices"
+    "prices":"/prices",
+    "orders":"/orders"
 }
