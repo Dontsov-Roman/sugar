@@ -19,8 +19,10 @@ const sqlWithUser = `SELECT
              (
                  SELECT x FROM (
                          SELECT JSON_AGG(
-                             (SELECT x FROM (
-                                 SELECT p.id AS id, p.name AS name, p.price_uah AS price) x
+                             (
+                                 SELECT x FROM (
+                                     SELECT p.id AS id, p.name AS name, p.price_uah AS price
+                                 ) x
                              )
                          ) as pr FROM prices p WHERE p.id=ANY(o.prices_ids)
                  ) x
