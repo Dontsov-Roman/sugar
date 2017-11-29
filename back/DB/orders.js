@@ -15,7 +15,19 @@ const sqlWithUser = `SELECT
     o.date,
     o.is_read,
     ARRAY(
-        SELECT ROW_TO_JSON(row(p.id, p.name, p.price_uah)) from prices p where p.id=ANY(o.prices_ids)
+        SELECT ROW_TO_JSON(
+             (
+                 SELECT x FROM (
+                     SELECT (
+                         SELECT json_agg(
+                             (SELECT x FROM (
+                                 SELECT p.id AS id, p.name AS name, p.price_uah AS price) x
+                             )
+                         ) FROM prices p WHERE p.id=ANY(o.prices_ids)
+                     ) AS k3
+                 ) x
+             ), true
+         )
     ) as prices,
     u.email as email,
     u.phone as phone,
