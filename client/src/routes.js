@@ -1,6 +1,6 @@
 import React from "react";
 import { Route } from "react-router-dom";
-import address from './addresses.json';
+import address from 'addresses';
 import App from './containers/App';
 import About from './containers/About';
 import Home from './containers/Home';

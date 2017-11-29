@@ -42,7 +42,8 @@ CREATE TABLE orders (
     user_id integer,
     created_at timestamp without time zone DEFAULT now() NOT NULL,
     date timestamp without time zone DEFAULT now() NOT NULL,
-    is_read boolean DEFAULT false
+    is_read boolean DEFAULT false,
+    prices_ids integer[]
 );
 
 
@@ -167,7 +168,8 @@ ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regcl
 -- Data for Name: orders; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY orders (id, user_id, created_at, date, is_read) FROM stdin;
+COPY orders (id, user_id, created_at, date, is_read, prices_ids) FROM stdin;
+1	2	2017-11-29 15:06:43.598097	2017-11-29 15:06:15.494016	f	{1,2}
 \.
 
 
@@ -175,7 +177,7 @@ COPY orders (id, user_id, created_at, date, is_read) FROM stdin;
 -- Name: orders_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('orders_id_seq', 1, false);
+SELECT pg_catalog.setval('orders_id_seq', 1, true);
 
 
 --
@@ -183,6 +185,9 @@ SELECT pg_catalog.setval('orders_id_seq', 1, false);
 --
 
 COPY prices (id, name, description, price_uah, time_hours) FROM stdin;
+1	Some name	description	10.00	2.00
+2	some name 2	desc 2	20.00	1.00
+3	another name	qweqweqwe	100.00	6.00
 \.
 
 
@@ -190,7 +195,7 @@ COPY prices (id, name, description, price_uah, time_hours) FROM stdin;
 -- Name: prices_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sugar
 --
 
-SELECT pg_catalog.setval('prices_id_seq', 1, false);
+SELECT pg_catalog.setval('prices_id_seq', 3, true);
 
 
 --
@@ -198,6 +203,8 @@ SELECT pg_catalog.setval('prices_id_seq', 1, false);
 --
 
 COPY users (id, type, email, phone, name, created_at) FROM stdin;
+1	1	bromaretskaya@gmail.com	380960799798	Александра	2017-11-29 15:05:43.743252
+2	2	dontsovroman@gmail.com	380974885047	Roman	2017-11-29 15:06:15.494016
 \.
 
 
@@ -205,7 +212,7 @@ COPY users (id, type, email, phone, name, created_at) FROM stdin;
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('users_id_seq', 1, false);
+SELECT pg_catalog.setval('users_id_seq', 2, true);
 
 
 --

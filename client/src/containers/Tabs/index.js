@@ -7,7 +7,7 @@ import Info from 'material-ui/svg-icons/action/info';
 import Money from 'material-ui/svg-icons/editor/attach-money';
 import PropTypes from 'prop-types';
 import decorator from '../../decorators/Tabs';
-import addresses from '../../addresses.json';
+import addresses from 'addresses';
 
 @decorator
 export class TabsContainer extends Component{

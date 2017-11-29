@@ -3,5 +3,7 @@
     "home":"/",
     "about":"/about",
     "prices":"/prices",
-    "orders":"/orders"
+    "orders":"/orders",
+    "users":"/users",
+    "clients":"/clients"
 }
