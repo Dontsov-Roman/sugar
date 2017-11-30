@@ -17,3 +17,9 @@ orders.byId(1)
     console.log('error');
     console.log(err);
 });
+orders.add({date: new Date().toISOString()})
+.then(res => console.log(JSON.stringify(res)))
+.catch(err => {
+    console.log('error');
+    console.log(err);
+});

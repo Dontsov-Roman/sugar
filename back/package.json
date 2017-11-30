@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "node DB/tests/orders.js"
+    "testOrders": "node DB/tests/orders.js",
+    "testUsers": "node DB/tests/users.js",
+    "testNewOrder": "node DB/tests/newOrder.js"
   },
   "author": "Dontsov Roman",
   "license": "ISC",

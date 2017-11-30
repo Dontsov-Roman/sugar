@@ -10,6 +10,7 @@ const app = express();
 const dbError = () => ({
     errorMessage:'something went wrong'
 });
+
 const response = res => result => {
     res.setHeader('Content-Type', 'application/json');
     res.send(JSON.stringify(result));
@@ -57,7 +58,7 @@ app.get(addresses.users+'/:id', (req,res) => {
 app.get(addresses.clients+'/:id', (req,res) => {
     const id = req.params.id;
     users
-        .clientById(id)
+        .findClientById(id)
         .then(result => response(res)(result))
         .catch(err => response(res)(err))
 });

@@ -12,6 +12,9 @@ const handler = res => {
     })
 };
 
+const handlerFirst = res => (res.rows && res.rows.length)?res.rows[0]:undefined
+const errorHandlerFirst = () => undefined;
+
 const errorHandler = err => {
     console.log(err);
     return {
@@ -21,6 +24,9 @@ const errorHandler = err => {
 
 module.exports = {
     query:(text,params,callback) => pool.query(text,params,callback),
+    pool,
     handler,
-    errorHandler
+    handlerFirst,
+    errorHandler,
+    errorHandlerFirst
 };

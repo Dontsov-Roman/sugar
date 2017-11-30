@@ -1,7 +1,9 @@
 const db = require('./index');
 const query = db.query,
     handler = db.handler,
-    errorHandler = db.errorHandler;
+    errorHandler = db.errorHandler,
+    errorHandlerFirst = db.errorHandlerFirst,
+    handlerFirst = db.handlerFirst;
 
 const errorById = (id, error) => {
     console.log(error);
@@ -23,10 +25,15 @@ const selectJoin =`SELECT
     LEFT JOIN prices p ON op.price_id=p.id
     `;
 
+const insertSql = `
+    INSERT INTO orders (date) values($1) RETURNING *
+`;
+
 const groupBy = ` GROUP BY o.id, u.id`;
 
 module.exports = {
     all: () => db.query(selectJoin + groupBy).then(handler).catch(errorHandler),
     byId: id => db.query(selectJoin + ` WHERE o.id=$1` + groupBy,[id]).then(handler).catch(err => errorById(id, err)),
     allNew: () => db.query(selectJoin + ` WHERE o.is_read=FALSE` + groupBy).then(handler).catch(errorHandler),
+    add:({date}) => db.query(insertSql,[date]).then(handlerFirst).catch(errorHandlerFirst)
 };
