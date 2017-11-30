@@ -4,7 +4,7 @@ const query = db.query,
     errorHandler = db.errorHandler;
 
 const errorById = (id, error) => {
-    // console.log(error);
+    console.log(error);
     return{
         errorMessage: 'no order with id '+id
     }
@@ -14,17 +14,16 @@ const selectJoin =`SELECT
     o.created_at,
     o.date,
     o.is_read,
-    u.name as user_name,
-    u.phone as user_phone,
-    u.email as user_email,
+    TO_JSON(u) as user,
     JSON_AGG(p) as prices
     FROM orders as o
-    LEFT JOIN users u ON o.user_id=u.id
+    LEFT JOIN users_orders uo ON o.id=uo.order_id
+    LEFT JOIN users u ON uo.user_id=u.id
     LEFT JOIN orders_prices op ON o.id=op.order_id
     LEFT JOIN prices p ON op.price_id=p.id
     `;
 
-const groupBy = ` GROUP BY o.id,u.id`;
+const groupBy = ` GROUP BY o.id, u.id`;
 
 module.exports = {
     all: () => db.query(selectJoin + groupBy).then(handler).catch(errorHandler),
