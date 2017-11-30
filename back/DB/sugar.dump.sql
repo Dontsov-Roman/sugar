@@ -39,7 +39,6 @@ SET default_with_oids = false;
 
 CREATE TABLE orders (
     id integer NOT NULL,
-    user_id integer,
     created_at timestamp without time zone DEFAULT now() NOT NULL,
     date timestamp without time zone DEFAULT now() NOT NULL,
     is_read boolean DEFAULT false
@@ -155,6 +154,18 @@ ALTER SEQUENCE users_id_seq OWNED BY users.id;
 
 
 --
+-- Name: users_orders; Type: TABLE; Schema: public; Owner: sugar
+--
+
+CREATE TABLE users_orders (
+    user_id integer NOT NULL,
+    order_id integer NOT NULL
+);
+
+
+ALTER TABLE users_orders OWNER TO sugar;
+
+--
 -- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -179,8 +190,8 @@ ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regcl
 -- Data for Name: orders; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY orders (id, user_id, created_at, date, is_read) FROM stdin;
-1	2	2017-11-29 15:06:43.598097	2017-11-29 15:06:15.494016	f
+COPY orders (id, created_at, date, is_read) FROM stdin;
+1	2017-11-29 15:06:43.598097	2017-11-29 15:06:15.494016	f
 \.
 
 
@@ -237,6 +248,15 @@ SELECT pg_catalog.setval('users_id_seq', 2, true);
 
 
 --
+-- Data for Name: users_orders; Type: TABLE DATA; Schema: public; Owner: sugar
+--
+
+COPY users_orders (user_id, order_id) FROM stdin;
+2	1
+\.
+
+
+--
 -- Name: orders_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -258,6 +278,14 @@ ALTER TABLE ONLY orders_prices
 
 ALTER TABLE ONLY prices
     ADD CONSTRAINT prices_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: users_orders_pkey; Type: CONSTRAINT; Schema: public; Owner: sugar
+--
+
+ALTER TABLE ONLY users_orders
+    ADD CONSTRAINT users_orders_pkey PRIMARY KEY (user_id, order_id);
 
 
 --
@@ -292,11 +320,19 @@ ALTER TABLE ONLY orders_prices
 
 
 --
--- Name: orders_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: users_orders_order_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: sugar
 --
 
-ALTER TABLE ONLY orders
-    ADD CONSTRAINT orders_user_id_fkey FOREIGN KEY (user_id) REFERENCES users(id);
+ALTER TABLE ONLY users_orders
+    ADD CONSTRAINT users_orders_order_id_fkey FOREIGN KEY (order_id) REFERENCES orders(id);
+
+
+--
+-- Name: users_orders_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: sugar
+--
+
+ALTER TABLE ONLY users_orders
+    ADD CONSTRAINT users_orders_user_id_fkey FOREIGN KEY (user_id) REFERENCES users(id);
 
 
 --
