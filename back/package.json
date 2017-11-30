@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "node DB/getAllClients.js"
+    "test": "node DB/tests/orders.js"
   },
   "author": "Dontsov Roman",
   "license": "ISC",
