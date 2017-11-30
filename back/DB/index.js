@@ -13,7 +13,7 @@ const handler = res => {
 };
 
 const errorHandler = err => {
-    console.log(err);
+    // console.log(err);
     return {
         errorMessage:'no items'
     }

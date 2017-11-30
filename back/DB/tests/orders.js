@@ -5,7 +5,7 @@ orders.all()
     console.log('error');
     console.log(err);
 });
-orders.allNew(1)
+orders.allNew()
 .then(res => console.log(JSON.stringify(res)))
 .catch(err => {
     console.log('error');
