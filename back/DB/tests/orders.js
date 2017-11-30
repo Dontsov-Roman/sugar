@@ -1,5 +1,17 @@
 const orders = require('../orders');
-orders.all(1)
+orders.all()
+.then(res => console.log(JSON.stringify(res)))
+.catch(err => {
+    console.log('error');
+    console.log(err);
+});
+orders.allNew(1)
+.then(res => console.log(JSON.stringify(res)))
+.catch(err => {
+    console.log('error');
+    console.log(err);
+});
+orders.byId(1)
 .then(res => console.log(JSON.stringify(res)))
 .catch(err => {
     console.log('error');

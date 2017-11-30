@@ -42,8 +42,7 @@ CREATE TABLE orders (
     user_id integer,
     created_at timestamp without time zone DEFAULT now() NOT NULL,
     date timestamp without time zone DEFAULT now() NOT NULL,
-    is_read boolean DEFAULT false,
-    prices_ids integer[]
+    is_read boolean DEFAULT false
 );
 
 
@@ -69,6 +68,18 @@ ALTER TABLE orders_id_seq OWNER TO postgres;
 
 ALTER SEQUENCE orders_id_seq OWNED BY orders.id;
 
+
+--
+-- Name: orders_prices; Type: TABLE; Schema: public; Owner: sugar
+--
+
+CREATE TABLE orders_prices (
+    order_id integer NOT NULL,
+    price_id integer NOT NULL
+);
+
+
+ALTER TABLE orders_prices OWNER TO sugar;
 
 --
 -- Name: prices; Type: TABLE; Schema: public; Owner: sugar
@@ -168,8 +179,8 @@ ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regcl
 -- Data for Name: orders; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY orders (id, user_id, created_at, date, is_read, prices_ids) FROM stdin;
-1	2	2017-11-29 15:06:43.598097	2017-11-29 15:06:15.494016	f	{1,2}
+COPY orders (id, user_id, created_at, date, is_read) FROM stdin;
+1	2	2017-11-29 15:06:43.598097	2017-11-29 15:06:15.494016	f
 \.
 
 
@@ -178,6 +189,16 @@ COPY orders (id, user_id, created_at, date, is_read, prices_ids) FROM stdin;
 --
 
 SELECT pg_catalog.setval('orders_id_seq', 1, true);
+
+
+--
+-- Data for Name: orders_prices; Type: TABLE DATA; Schema: public; Owner: sugar
+--
+
+COPY orders_prices (order_id, price_id) FROM stdin;
+1	1
+1	2
+\.
 
 
 --
@@ -224,6 +245,14 @@ ALTER TABLE ONLY orders
 
 
 --
+-- Name: p_key_idx; Type: CONSTRAINT; Schema: public; Owner: sugar
+--
+
+ALTER TABLE ONLY orders_prices
+    ADD CONSTRAINT p_key_idx PRIMARY KEY (order_id, price_id);
+
+
+--
 -- Name: prices_pkey; Type: CONSTRAINT; Schema: public; Owner: sugar
 --
 
@@ -237,6 +266,29 @@ ALTER TABLE ONLY prices
 
 ALTER TABLE ONLY users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: orders_prices_idx; Type: INDEX; Schema: public; Owner: sugar
+--
+
+CREATE INDEX orders_prices_idx ON orders_prices USING btree (order_id, price_id);
+
+
+--
+-- Name: orders_prices_order_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: sugar
+--
+
+ALTER TABLE ONLY orders_prices
+    ADD CONSTRAINT orders_prices_order_id_fkey FOREIGN KEY (order_id) REFERENCES orders(id);
+
+
+--
+-- Name: orders_prices_price_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: sugar
+--
+
+ALTER TABLE ONLY orders_prices
+    ADD CONSTRAINT orders_prices_price_id_fkey FOREIGN KEY (price_id) REFERENCES prices(id);
 
 
 --
